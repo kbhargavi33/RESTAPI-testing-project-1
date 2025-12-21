@@ -3,14 +3,28 @@ package utils;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import java.io.File;
+
 public class ExtentManager {
 
     private static ExtentReports extent;
 
     public static ExtentReports getExtentReport() {
         if (extent == null) {
+
+            String reportDir = System.getProperty("user.dir")
+                    + "/target/extent-reports";
+
+            // Create directory if it doesn't exist
+            File dir = new File(reportDir);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            String reportPath = reportDir + "/ExtentReport.html";
+
             ExtentSparkReporter spark =
-                    new ExtentSparkReporter("test-output/ExtentReport.html");
+                    new ExtentSparkReporter(reportPath);
 
             spark.config().setReportName("DummyJSON API Automation Report");
             spark.config().setDocumentTitle("API Test Results");
