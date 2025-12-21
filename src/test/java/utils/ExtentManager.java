@@ -2,6 +2,7 @@ package utils;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 
 import java.io.File;
 
@@ -15,7 +16,6 @@ public class ExtentManager {
             String reportDir = System.getProperty("user.dir")
                     + "/target/extent-reports";
 
-            // Create directory if it doesn't exist
             File dir = new File(reportDir);
             if (!dir.exists()) {
                 dir.mkdirs();
@@ -26,8 +26,12 @@ public class ExtentManager {
             ExtentSparkReporter spark =
                     new ExtentSparkReporter(reportPath);
 
-            spark.config().setReportName("DummyJSON API Automation Report");
+
+            spark.config().setTheme(Theme.STANDARD);
+            spark.config().setEncoding("utf-8");
             spark.config().setDocumentTitle("API Test Results");
+            spark.config().setReportName("DummyJSON API Automation Report");
+            spark.config().setTimelineEnabled(true);
 
             extent = new ExtentReports();
             extent.attachReporter(spark);
