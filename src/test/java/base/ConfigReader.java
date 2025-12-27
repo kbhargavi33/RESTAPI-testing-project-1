@@ -10,8 +10,9 @@ public class ConfigReader {
     //static block
     
     static {
-        try (InputStream inputstream = ConfigReader.class.getClassLoader().getResourceAsStream("config.properties")) /*try(with resources) will 
-        automatically close the resources after use */
+        try (InputStream inputstream = ConfigReader.class.getClassLoader().getResourceAsStream("config.properties")) 
+        //getClassLoader loads .properties file in to memory to be available during execution(required for Jenkins)
+        
         {
             if (inputstream == null) 
             {
